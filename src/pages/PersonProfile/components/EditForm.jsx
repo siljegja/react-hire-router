@@ -1,26 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import { useNavigate } from 'react-router-dom'
-import { useState} from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useState } from 'react'
 
-export default function HireForm({ person, hiredPeople, setHiredPeople }) {
-  const [wage, setWage] = useState(person.wage ? person.wage : 0);
+function EditForm({person, hiredPeople, setHiredPeople}) {
+  const [wage, setWage] = useState(0)
   const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
     person.wage = wage;
-    if (hiredPeople.includes(person)) {
-      setHiredPeople([...hiredPeople]);
-    } else {
-      setHiredPeople([...hiredPeople, person])
-    }
     navigate('/');
   }
 
   return (
-   <>
     <form onSubmit={handleSubmit}>
       <label htmlFor="wage">Wage Offer</label>
       <input
@@ -30,13 +24,10 @@ export default function HireForm({ person, hiredPeople, setHiredPeople }) {
         onChange={event => setWage(event.target.value)}
         value={wage}
       />
-
-      <button type="submit"> {person.wage ? 'Edit' : 'Hire'} </button>
-
+        <button type="submit"> Hire </button>
     </form>
 
-
-   </>
   )
 }
 
+export default EditForm
